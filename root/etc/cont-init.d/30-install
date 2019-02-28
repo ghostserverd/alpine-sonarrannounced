@@ -3,12 +3,17 @@
 # create folders
 mkdir -p /var/log/sonarrannounced
 
-# install app
-[[ ! -d "/config/sonarrAnnounced/.git" ]] && \
+# install or update app
+if [[ -d "/config/sonarrAnnounced/.git" ]]; then
+  cd "/config/sonarrAnnounced/" && git pull --rebase
+else
   git clone https://github.com/fryfrog/sonarrAnnounced.git /config/sonarrAnnounced
+fi
 
+# install requirements
 pip3 install -r /config/sonarrAnnounced/requirements.txt
 
+# copy default config in place if missing
 if [[ ! -f /config/sonarrAnnounced/settings.cfg ]]; then
   cp /config/sonarrAnnounced/settings.cfg.default /config/sonarrAnnounced/settings.cfg
 fi
