@@ -4,16 +4,15 @@
 mkdir -p /var/log/sonarrannounced
 
 # install app
-[[ ! -d "/config/.git" ]] && \
-  git clone https://github.com/fryfrog/sonarrAnnounced.git /config
+[[ ! -d "/config/sonarrAnnounced/.git" ]] && \
+  git clone https://github.com/fryfrog/sonarrAnnounced.git /config/sonarrAnnounced
 
-pip3 install -r /config/requirements.txt
+pip3 install -r /config/sonarrAnnounced/requirements.txt
 
-if [[ ! -f /config/settings.cfg ]]; then
-  cp /config/settings.cfg.default /config/settings.cfg
+if [[ ! -f /config/sonarrAnnounced/settings.cfg ]]; then
+  cp /config/sonarrAnnounced/settings.cfg.default /config/sonarrAnnounced/settings.cfg
 fi
 
 # permissions
 chown -R abc:abc /config
-
-chmod 777 /var/log/sonarrannounced
+chmod 775 /var/log/sonarrannounced

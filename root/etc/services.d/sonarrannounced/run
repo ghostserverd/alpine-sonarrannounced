@@ -2,7 +2,6 @@
 
 umask 022
 
-cd /config
+cd /config/sonarrAnnounced
 
-exec \
-	s6-setuidgid abc /usr/bin/python3.5 /config/bot.py
+exec s6-setuidgid abc /usr/bin/python3.5 /config/sonarrAnnounced/bot.py
