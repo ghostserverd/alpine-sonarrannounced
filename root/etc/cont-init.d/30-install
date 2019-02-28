@@ -1,28 +1,19 @@
 #!/usr/bin/with-contenv bash
 
 # create folders
-mkdir -p \
-	/var/log/sonarrannounced
+mkdir -p /var/log/sonarrannounced
 
 # install app
- [[ ! -d "/config/temp/.git" ]] && \
-	git clone https://github.com/l3uddz/sonarrAnnounced /config/temp
-	cp -r /config/temp/* /config
-	rm -rf /config/temp
-	pip3 install -r /config/requirements.txt
-	if [ ! -f /config/settings.cfg ]; then
-		cp /config/settings.cfg.default /config/settings.cfg
-	fi
-	# if [ ! -d /config/trackers ]; then
-	# 	cp -r /app/sonarrannounced/trackers /config/trackers
-	# fi
-	# if [ ! -d /config/templates ]; then
-	# 	cp -r /app/sonarrannounced/templates /config/templates
-	# fi
+[[ ! -d "/config/.git" ]] && \
+  git clone https://github.com/fryfrog/sonarrAnnounced.git /config
+
+pip3 install -r /config/requirements.txt
+
+if [[ ! -f /config/settings.cfg ]]; then
+  cp /config/settings.cfg.default /config/settings.cfg
+fi
 
 # permissions
-chown -R abc:abc \
-	/config
+chown -R abc:abc /config
 
-chmod 777 \
-	/var/log/sonarrannounced
+chmod 777 /var/log/sonarrannounced

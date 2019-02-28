@@ -1,11 +1,11 @@
 FROM lsiobase/alpine.python:3.5
-MAINTAINER sparklyballs
+MAINTAINER fryfrog
 
 RUN apk add --no-cache python3 && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
-    rm -r /root/.cache
+  python3 -m ensurepip && \
+  rm -r /usr/lib/python*/ensurepip && \
+  pip3 install --upgrade pip setuptools && \
+  rm -r /root/.cache
 
 # set python to use utf-8 rather than ascii.
 ENV PYTHONIOENCODING="UTF-8"
