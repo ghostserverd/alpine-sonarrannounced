@@ -1,4 +1,4 @@
-FROM lsiobase/alpine.python:latest
+FROM lsiobase/alpine.python:3.6
 MAINTAINER fryfrog
 
 RUN apk add --no-cache python3 && \
