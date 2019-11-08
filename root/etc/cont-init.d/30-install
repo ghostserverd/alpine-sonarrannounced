@@ -7,7 +7,7 @@ mkdir -p /var/log/sonarrannounced
 if [[ -d "/config/sonarrAnnounced/.git" ]]; then
   cd "/config/sonarrAnnounced/" && git pull --rebase
 else
-  git clone https://github.com/fryfrog/sonarrAnnounced.git /config/sonarrAnnounced
+  git clone https://github.com/ghostserverd/sonarrAnnounced.git /config/sonarrAnnounced
 fi
 
 # install requirements
