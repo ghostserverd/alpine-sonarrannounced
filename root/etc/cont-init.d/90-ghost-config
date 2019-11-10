@@ -1,0 +1,49 @@
+#!/usr/bin/with-contenv bash
+
+ANNOUNCEDD_WEBUI_USER=${ANNOUNCEDD_WEBUI_USER:-admin}
+ANNOUNCEDD_WEBUI_PASS=${ANNOUNCEDD_WEBUI_PASS:-adminadmin}
+ANNOUNCEDD_WEBUI_PORT=${ANNOUNCEDD_WEBUI_PORT:-3467}
+SONARR_API_KEY=${SONARR_API_KEY:-SONARR_API_KEY}
+RADARR_API_KEY=${RADARR_API_KEY:-RADARR_API_KEY}
+
+CONFIG_FILE="/config/settings.cfg"
+
+cat <<"EOF"
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+         _               _
+    __ _| |__   ___  ___| |_
+   / _` | '_ \ / _ \/ __| __/
+  | (_| | | | | (_) \__ \ |_
+   \__, |_| |_|\___/|___/\__|
+   |___/      /   _ \
+          (¯\| o (@) |/¯)
+           \_  .___.  _/
+            /   !_!   \
+           /_.--._.--._\
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+EOF
+
+# mv default config into place if missing
+if [[ ! -f /config/settings.cfg ]]; then
+  mv /settings.cfg /config/
+fi
+
+sed -i "s/ANNOUNCEDD_WEBUI_USER/${ANNOUNCEDD_WEBUI_USER}/g" $CONFIG_FILE
+sed -i "s/ANNOUNCEDD_WEBUI_PASS/${ANNOUNCEDD_WEBUI_PASS}/g" $CONFIG_FILE
+sed -i "s/ANNOUNCEDD_WEBUI_PORT/${ANNOUNCEDD_WEBUI_PORT}/g" $CONFIG_FILE
+sed -i "s/SONARR_API_KEY/${SONARR_API_KEY}/g" $CONFIG_FILE
+sed -i "s/RADARR_API_KEY/${RADARR_API_KEY}/g" $CONFIG_FILE
+
+# create logfile if missing
+if [[ ! -f /config/status.log ]]; then
+  touch /config/status.log
+fi
+
+# create symlinks for log and config files
+ln -sf /config/status.log /usr/share/announcedd
+ln -sf /config/settings.cfg /usr/share/announcedd
+
+# permissions
+chown -R abc:abc /config /usr/share/announcedd
+chmod 775 /var/log/announcedd

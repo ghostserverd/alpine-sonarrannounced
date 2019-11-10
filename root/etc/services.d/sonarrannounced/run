@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-umask 022
-
-cd /config/sonarrAnnounced
-
-exec s6-setuidgid abc /usr/bin/python3 /config/sonarrAnnounced/bot.py
