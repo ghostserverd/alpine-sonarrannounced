@@ -1,5 +1,5 @@
 FROM lsiobase/alpine.python:3.6
-MAINTAINER fryfrog
+MAINTAINER ghostserverd
 
 RUN apk add --no-cache python3 \
  && python3 -m ensurepip \
