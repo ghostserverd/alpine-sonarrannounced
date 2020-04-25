@@ -46,7 +46,7 @@ ln -sf /config/settings.cfg /usr/share/announcedd
 # only chown the /config directory if it is not owned by abc:abc
 CHOWN_DIR=/config
 DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
-if [[ $DIR_OWNER != "abc:abc" ]]
+if [[ $DIR_OWNER != "abc:users" ]]
 then
     echo "chowning $CHOWN_DIR please be patient"
     chown -R abc:abc $CHOWN_DIR
@@ -55,7 +55,7 @@ fi
 # only chown the /usr/share/announcedd directory if it is not owned by abc:abc
 CHOWN_DIR=/usr/share/announcedd
 DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
-if [[ $DIR_OWNER != "abc:abc" ]]
+if [[ $DIR_OWNER != "abc:users" ]]
 then
     echo "chowning $CHOWN_DIR please be patient"
     chown -R abc:abc $CHOWN_DIR
