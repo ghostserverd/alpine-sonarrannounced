@@ -1,13 +1,4 @@
 #!/usr/bin/with-contenv bash
-
-ANNOUNCEDD_WEBUI_USER=${ANNOUNCEDD_WEBUI_USER:-admin}
-ANNOUNCEDD_WEBUI_PASS=${ANNOUNCEDD_WEBUI_PASS:-adminadmin}
-ANNOUNCEDD_WEBUI_PORT=${ANNOUNCEDD_WEBUI_PORT:-3467}
-SONARR_API_KEY=${SONARR_API_KEY:-SONARR_API_KEY}
-RADARR_API_KEY=${RADARR_API_KEY:-RADARR_API_KEY}
-
-CONFIG_FILE="/config/settings.cfg"
-
 cat <<"EOF"
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
          _               _
@@ -23,6 +14,14 @@ cat <<"EOF"
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 EOF
+
+ANNOUNCEDD_WEBUI_USER=${ANNOUNCEDD_WEBUI_USER:-admin}
+ANNOUNCEDD_WEBUI_PASS=${ANNOUNCEDD_WEBUI_PASS:-adminadmin}
+ANNOUNCEDD_WEBUI_PORT=${ANNOUNCEDD_WEBUI_PORT:-3467}
+SONARR_API_KEY=${SONARR_API_KEY:-SONARR_API_KEY}
+RADARR_API_KEY=${RADARR_API_KEY:-RADARR_API_KEY}
+
+CONFIG_FILE="/config/settings.cfg"
 
 # mv default config into place if missing
 if [[ ! -f /config/settings.cfg ]]; then
@@ -44,6 +43,22 @@ fi
 ln -sf /config/status.log /usr/share/announcedd
 ln -sf /config/settings.cfg /usr/share/announcedd
 
-# permissions
-chown -R abc:abc /config /usr/share/announcedd
+# only chown the /config directory if it is not owned by abc:abc
+CHOWN_DIR=/config
+DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
+if [[ $DIR_OWNER != "abc:abc" ]]
+then
+    echo "chowning $CHOWN_DIR please be patient"
+    chown -R abc:abc $CHOWN_DIR
+fi
+
+# only chown the /usr/share/announcedd directory if it is not owned by abc:abc
+CHOWN_DIR=/usr/share/announcedd
+DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
+if [[ $DIR_OWNER != "abc:abc" ]]
+then
+    echo "chowning $CHOWN_DIR please be patient"
+    chown -R abc:abc $CHOWN_DIR
+fi
+
 chmod 775 /var/log/announcedd
