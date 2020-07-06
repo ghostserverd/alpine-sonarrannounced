@@ -1,7 +1,7 @@
 FROM lsiobase/alpine.python:3.6
 MAINTAINER ghostserverd
 
-RUN echo "force latest 2020-07-06.0"
+RUN echo "force latest 2020-07-06.1"
 
 RUN apk add --no-cache python3 \
  && python3 -m ensurepip \
